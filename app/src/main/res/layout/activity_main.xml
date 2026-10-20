@@ -41,6 +41,9 @@
             android:inputType="number"
             android:maxLength="10" />
 
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="@string/faculty_label" android:layout_marginTop="12dp" />
+        <Spinner android:id="@+id/spKhoa" android:layout_width="match_parent" android:layout_height="48dp" />
         <!-- ===== Spinner: chọn 1 trong danh sách ===== -->
         <TextView
             android:layout_width="wrap_content"
@@ -108,6 +111,8 @@
             android:layout_height="wrap_content"
             android:text="@string/buoi_toi" />
 
+        <TextView android:id="@+id/tvSoBuoi" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="@string/session_count" android:textStyle="bold" />
         <!-- ===== Switch (Material) và ToggleButton (widget cũ) ===== -->
         <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/swThongBao"

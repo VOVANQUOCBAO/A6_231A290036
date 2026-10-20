@@ -26,7 +26,7 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import java.util.ArrayList;
 import java.util.List;
  
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends LabActivity {
  
     private static final String TAG = "A6_231A290036";
  
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
  
     private EditText edtHoTen, edtMssv;
     private Spinner spMonHoc;
+    private int pendingCourse=-1;
     private RadioGroup rgHeDaoTao;
     private CheckBox cbSang, cbChieu, cbToi;
     private MaterialSwitch swThongBao;
@@ -42,14 +43,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
-            return insets;
-        });
- 
+        showLayout(R.layout.activity_main);
+
         edtHoTen = findViewById(R.id.edtHoTen);
         edtMssv = findViewById(R.id.edtMssv);
         spMonHoc = findViewById(R.id.spMonHoc);
@@ -80,9 +75,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
  
+        Spinner khoa=findViewById(R.id.spKhoa);
+        ArrayAdapter<CharSequence> khoaAdapter=ArrayAdapter.createFromResource(this,R.array.khoa,android.R.layout.simple_spinner_item);
+        khoaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        khoa.setAdapter(khoaAdapter);
+        khoa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override public void onItemSelected(AdapterView<?> parent,View view,int pos,long id) {
+                int array=pos==0?R.array.mon_hoc:R.array.mon_kinh_te;
+                // onRestoreInstanceState có thể vừa phục hồi Spinner học phần.
+                Object selected=spMonHoc.getSelectedItem();
+                String old=selected==null?"":selected.toString();
+                ArrayAdapter<CharSequence> a=ArrayAdapter.createFromResource(MainActivity.this,array,android.R.layout.simple_spinner_item);
+                a.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); spMonHoc.setAdapter(a);
+                int index=a.getPosition(old); if(index>=0) spMonHoc.setSelection(index);
+                if(pendingCourse>=0) { if(pendingCourse<a.getCount()) spMonHoc.setSelection(pendingCourse); pendingCourse=-1; }
+            }
+            @Override public void onNothingSelected(AdapterView<?> parent) { }
+        });
+        if(savedInstanceState!=null) {
+            pendingCourse=savedInstanceState.getInt("course",0);
+            khoa.setSelection(savedInstanceState.getInt("faculty",0));
+        }
+        android.widget.CompoundButton.OnCheckedChangeListener count=(button,checked)->capNhatSoBuoi();
+        cbSang.setOnCheckedChangeListener(count); cbChieu.setOnCheckedChangeListener(count); cbToi.setOnCheckedChangeListener(count);
+        capNhatSoBuoi();
         // ---- CheckBox: lắng nghe thay đổi ----
-        cbToi.setOnCheckedChangeListener((buttonView, isChecked) ->
-                Log.d(TAG, "Buổi Tối: " + (isChecked ? "chọn" : "bỏ chọn")));
+
  
         // ---- RadioGroup: chỉ chọn được một ----
         rgHeDaoTao.setOnCheckedChangeListener((group, checkedId) -> {
@@ -101,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
  
     /** Kiểm tra dữ liệu rồi chuyển sang màn hình xác nhận. */
     private void xacNhan() {
+        edtHoTen.setError(null); edtMssv.setError(null);
         String hoTen = edtHoTen.getText().toString().trim();
         String mssv = edtMssv.getText().toString().trim();
  
@@ -109,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             edtHoTen.requestFocus();
             return;
         }
-        if (mssv.length() != 10) {
+        if (!mssv.matches("[0-9]{10}")) {
             edtMssv.setError(getString(R.string.err_mssv));
             edtMssv.requestFocus();
             return;
@@ -151,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
         edtMssv.setText("");
         edtHoTen.setError(null);
         edtMssv.setError(null);
+        ((Spinner)findViewById(R.id.spKhoa)).setSelection(0);
         spMonHoc.setSelection(0);
         rgHeDaoTao.clearCheck();
         cbSang.setChecked(false);
@@ -159,5 +179,17 @@ public class MainActivity extends AppCompatActivity {
         swThongBao.setChecked(true);
         tgUuTien.setChecked(false);
         edtHoTen.requestFocus();
+    }
+
+    private void capNhatSoBuoi() {
+        int count=(cbSang.isChecked()?1:0)+(cbChieu.isChecked()?1:0)+(cbToi.isChecked()?1:0);
+        ((android.widget.TextView)findViewById(R.id.tvSoBuoi)).setText(getString(R.string.session_count,count));
+    }
+    @Override protected void onRestoreInstanceState(Bundle state) {
+        super.onRestoreInstanceState(state); capNhatSoBuoi();
+    }
+    @Override protected void onSaveInstanceState(Bundle state) {
+        state.putInt("faculty",((Spinner)findViewById(R.id.spKhoa)).getSelectedItemPosition());
+        state.putInt("course",spMonHoc.getSelectedItemPosition()); super.onSaveInstanceState(state);
     }
 }

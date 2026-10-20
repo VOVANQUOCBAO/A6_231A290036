@@ -30,4 +30,6 @@
     <string name="err_he">Vui lòng chọn hệ đào tạo</string>
     <string name="err_buoi">Vui lòng chọn ít nhất một buổi học</string>
     <string name="tom_tat_format">Họ tên: %1$s\nMSSV: %2$s\nHọc phần: %3$s\nHệ đào tạo: %4$s\nBuổi học: %5$s\nNhận thông báo: %6$s\nChế độ ưu tiên: %7$s</string>
+<string name="faculty_label">Khoa (danh sách học phần thay đổi theo khoa)</string>
+<string name="session_count">Đã chọn: %1$d buổi</string>
 </resources>

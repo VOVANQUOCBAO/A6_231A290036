@@ -7,4 +7,7 @@
         <item>Trí tuệ nhân tạo</item>
         <item>Kiểm thử phần mềm</item>
     </string-array>
+
+    <string-array name="khoa"><item>Công nghệ thông tin</item><item>Kinh tế</item></string-array>
+    <string-array name="mon_kinh_te"><item>Kinh tế vi mô</item><item>Quản trị học</item><item>Marketing căn bản</item></string-array>
 </resources>
