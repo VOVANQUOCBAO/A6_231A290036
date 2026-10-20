@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/values/arrays.xml – nguồn dữ liệu cho Spinner -->
+<resources>
+    <string-array name="mon_hoc">
+        <item>Lập trình trên các thiết bị di động</item>
+        <item>Cơ sở dữ liệu</item>
+        <item>Trí tuệ nhân tạo</item>
+        <item>Kiểm thử phần mềm</item>
+    </string-array>
+</resources>

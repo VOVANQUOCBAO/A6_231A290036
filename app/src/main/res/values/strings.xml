@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">A6_231A290036</string>
+    <string name="title">Lab A6 – Đăng ký học phần</string>
+    <string name="student">Võ Văn Quốc Bảo – MSSV 231A290036</string>
+    <string name="hint_name">Họ và tên</string>
+    <string name="hint_mssv">Mã số sinh viên (10 chữ số)</string>
+    <string name="label_mon_hoc">Học phần đăng ký</string>
+    <string name="label_he">Hệ đào tạo</string>
+    <string name="he_chinh_quy">Chính quy</string>
+    <string name="he_vlvh">Vừa làm vừa học</string>
+    <string name="label_buoi">Buổi học mong muốn (chọn ít nhất 1)</string>
+    <string name="buoi_sang">Sáng</string>
+    <string name="buoi_chieu">Chiều</string>
+    <string name="buoi_toi">Tối</string>
+    <string name="label_thong_bao">Nhận thông báo qua email</string>
+    <string name="uu_tien_on">ƯU TIÊN: BẬT</string>
+    <string name="uu_tien_off">ƯU TIÊN: TẮT</string>
+    <string name="confirm">Xác nhận</string>
+    <string name="reset">Làm lại</string>
+    <string name="confirm_title">Xác nhận đăng ký</string>
+    <string name="back_edit">Quay lại chỉnh sửa</string>
+    <string name="no_data">Không nhận được dữ liệu</string>
+    <string name="co">Có</string>
+    <string name="khong">Không</string>
+    <string name="bat">Bật</string>
+    <string name="tat">Tắt</string>
+    <string name="err_empty">Không được để trống</string>
+    <string name="err_mssv">MSSV phải gồm đúng 10 chữ số</string>
+    <string name="err_he">Vui lòng chọn hệ đào tạo</string>
+    <string name="err_buoi">Vui lòng chọn ít nhất một buổi học</string>
+    <string name="tom_tat_format">Họ tên: %1$s\nMSSV: %2$s\nHọc phần: %3$s\nHệ đào tạo: %4$s\nBuổi học: %5$s\nNhận thông báo: %6$s\nChế độ ưu tiên: %7$s</string>
+</resources>
